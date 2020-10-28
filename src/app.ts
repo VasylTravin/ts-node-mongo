@@ -1,5 +1,5 @@
-import { AppResolver } from "./types/app";
 import { Server } from "http";
+import { AppResolver } from "./types/resolvers";
 
 export const app: AppResolver = (dependencies) => {
     const { appRoutes, server, port } = dependencies;
