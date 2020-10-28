@@ -9,6 +9,8 @@ const dbContext = appContainer.resolve<MongoDbContext>(DB_CONTEXT_INJECTOR);
 
 dbContext.connect();
 
+app.registerMiddlewares();
+
 app.registerRoutes();
 
 app.listen();

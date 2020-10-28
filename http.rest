@@ -10,3 +10,15 @@ Content-Type: application/json
     "userName":"VasylT",
     "password":"password"
 }
+
+###
+
+PUT http://localhost:4000/user
+Content-Type: application/json
+
+{
+    "id": "5f917a7d6e37451074dec9de",
+    "email": "vasyl.travin@ideo-digital.com",
+    "password": "password",
+    "userName": "VasylUPDATE"
+  }

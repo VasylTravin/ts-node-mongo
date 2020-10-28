@@ -2,7 +2,6 @@ import { IRepository } from "../types/database";
 import { IUserRepositoryDependencies } from "../types/dependencies";
 import { RepositoryResolver } from "../types/resolvers";
 import { IUser } from "../types/user";
-import { UserEntity } from "./schemas";
 
 export const userRepository: RepositoryResolver<IUserRepositoryDependencies, IUser> = (dependencies) => {
     const { dbContext } = dependencies;
@@ -28,7 +27,7 @@ export const userRepository: RepositoryResolver<IUserRepositoryDependencies, IUs
 
     const create = async (user: IUser): Promise<IUser> => {
         try {
-            const newUser = new UserEntity();
+            const newUser = new dbContext.userEntity();
 
             user.id = newUser.id;
             Object.assign(newUser, user);
@@ -43,5 +42,21 @@ export const userRepository: RepositoryResolver<IUserRepositoryDependencies, IUs
         }
     }
 
-    return { get, create }
+    const update = async (updateUser: IUser): Promise<IUser> => {
+        try {
+            let existingUser = dbContext.userEntity.findById(updateUser.id);
+
+            if (!existingUser)
+                throw new Error(`User with id: ${updateUser.id} not found`);
+
+            await dbContext.userEntity.update({ _id: updateUser.id }, updateUser);
+
+            return updateUser;
+        } catch (error) {
+            const err: Error = error;
+
+            throw new Error(`Error in updating user. User data: ${JSON.stringify(updateUser)}, message: ${err.message}`);
+        }
+    }
+    return { get, create, update }
 }

@@ -44,6 +44,9 @@ export const createAppContainer = (): AwilixContainer => {
             port: 4000,
             appRoutes: [
                 container.resolve<IAppRoute>(USER_ROUTER_INJECTOR)
+            ],
+            middlewares: [
+                express.json()
             ]
         }))
     });

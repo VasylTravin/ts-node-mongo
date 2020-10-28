@@ -36,8 +36,24 @@ export const userController: ControllerResolver<IUserControllerDependencies, Use
         }
     }
 
+    const updateUser = async (req: express.Request, res: express.Response): Promise<any> => {
+
+        const updateUser: IUser = req.body;
+
+        console.log(updateUser);
+        try {
+            const updatedUser = await userRepository.update(updateUser);
+
+            res.json(updatedUser);
+        } catch (error) {
+            var err: Error = error;
+
+            res.status(500).send(err.message);
+        }
+    }
     return {
         [UserContollerActions.GET_USER]: getUser,
-        [UserContollerActions.CREATE_USER]: createUser
+        [UserContollerActions.CREATE_USER]: createUser,
+        [UserContollerActions.UPDATE_USER]: updateUser
     }
 }

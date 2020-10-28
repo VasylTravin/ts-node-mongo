@@ -26,4 +26,5 @@ export interface IAppDependencies {
     server: express.Application;
     port: number;
     appRoutes: IAppRoute[];
+    middlewares: express.RequestHandler[];
 }

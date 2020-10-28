@@ -9,6 +9,7 @@ export const userRouter: RouterResolver<IUserRouterDependencies> = (dependencies
 
     router.get("/", userController.GET_USER);
     router.post("/", userController.CREATE_USER);
+    router.put("/", userController.UPDATE_USER);
 
     return { path, router };
 }
